@@ -17,7 +17,7 @@ export default function Tarefas() {
   return (
     <div>
       <Head>
-        <title> Tarefas </title>
+        <title> Tarefas - Profood </title>
       </Head>
       {session?.user &&
       <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
