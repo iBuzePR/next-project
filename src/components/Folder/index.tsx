@@ -1,6 +1,6 @@
 export default function Folder() {
     return (
-<div className="fixed bottom-0 w-full">
+        <div className="mt-20">
 
             <footer className="footer p-10 bg-base-200 text-base-content">
                 <div>
@@ -37,7 +37,6 @@ export default function Folder() {
                     </div>
                 </div>
             </footer>
-
         </div>
     )
 }

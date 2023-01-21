@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiFillGithub, AiFillCaretDown } from "react-icons/ai";
 
 // The approach used in this component shows how to build a sign in and sign out
@@ -10,13 +10,32 @@ export default function Header() {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const loading = status === "loading";
+  const [scrolled, setScrolled] = useState(false);
+
+
+  useEffect(() => {
+    // Adicionando evento de rolagem
+    window.addEventListener('scroll', () => {
+      const isTop = window.scrollY < 100
+      if (isTop !== true) {
+        setScrolled(true)
+        return
+      }
+      setScrolled(false)
+    })
+    // limpando evento de rolagem
+    return () => {
+      window.removeEventListener('scroll', () => {})
+    }
+  }, [
+  ])
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="navbar bg-base-100">
+    <div className={`navbar top-0 fixed left-0 w-full z-50  ${scrolled ? 'bg-white shadow-sm	' : 'bg-transparent'}`}>  
       <div className="flex-1">
         <a href="/">
           <button className=" text-black font-medium py-2 px-4">Home</button>
@@ -44,7 +63,7 @@ export default function Header() {
 
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  {session.user.image && <img src={session.user.image} />}
+                  {session?.user && session.user.image && <img src={session.user.image} />}
                 </div>
               </label>
             </div>
